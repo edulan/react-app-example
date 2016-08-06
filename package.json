@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "dexie": "^1.4.1",
+    "director": "^1.2.8",
     "mobx": "^2.4.1",
     "mobx-react": "^3.5.3",
     "react": "^15.2.1",

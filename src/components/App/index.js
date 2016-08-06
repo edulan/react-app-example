@@ -1,68 +1,30 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
-import { doLogin, doLogout } from '../../actions/';
+import Login from '../Login/';
+import Home from '../Home/';
+import NotFound from '../NotFound/';
 
 import './styles/';
 
-function LoginStatus({ isLoggedIn }) {
-  const styles = isLoggedIn ? {color: 'green'} : {color: 'gray'};
-
-  return (
-    <h1 style={styles}>
-      {isLoggedIn ? 'Logged in' : 'Not logged in'}
-    </h1>
-  );
-}
+const sectionToComponentMap = {
+  login: Login,
+  home: Home,
+};
 
 @observer class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: ''
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onClick = this.onClick.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+  renderSection(sectionName) {
+    const Section = sectionToComponentMap[sectionName] || NotFound;
 
-  onChange(event) {
-    this.setState({email: event.target.value});
-  }
-
-  onClick() {
-    this.performLogin();
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-    this.performLogin();
-  }
-
-  performLogin() {
-    if (!this.props.session.loggedIn) {
-      doLogin({email: this.state.email});
-    } else {
-      doLogout();
-    }
-
-    // this.setState({email: ''});
+    return <Section {...this.props} />;
   }
 
   render() {
-    const { loggedIn } = this.props.session;
-    const { email } = this.state;
+    const { section } = this.props.app;
 
     return (
-      <div className="App">
-        <LoginStatus isLoggedIn={loggedIn} />
-        <form onSubmit={this.onSubmit}>
-          <label>Email address:</label>
-          <input type="email" name="email" onChange={this.onChange} required />
-        </form>
-        <button onClick={this.onClick} disabled={!email}>
-          {!loggedIn ? 'Login' : 'Logout'}
-        </button>
+      <div className='App'>
+        {this.renderSection(section)}
       </div>
     );
   }
