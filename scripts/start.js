@@ -158,7 +158,7 @@ function runDevServer(port) {
     clearConsole();
     console.log(chalk.cyan('Starting the development server...'));
     console.log();
-    console.log(chalk.cyan('Now you can open the app running npm run electron'));
+    console.log(chalk.cyan('Now you can open the app running npm start'));
     // openBrowser(port);
   });
 }

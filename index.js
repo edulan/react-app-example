@@ -1,15 +1,27 @@
 const { app, BrowserWindow } = require('electron')
 
+function isDevelopment() {
+  return process.env.NODE_ENV === 'development'
+}
+
+const APP_NAME = isDevelopment() ? 'React example (development)' : 'React example'
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
 function createWindow () {
-  // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({width: 800, height: 600, title: APP_NAME})
 
-  // and load the index.html of the app.
-  win.loadURL(`http://localhost:3000/`)
+  if (isDevelopment()) {
+    win.loadURL(`http://localhost:3000/`)
+  } else {
+    // Load prod build
+    win.loadURL(`file://${__dirname}/build/index.html`)
+  }
+
+  // Do not update window title after loading pages
+  win.on('page-title-updated', (event) => event.preventDefault())
 
   // Emitted when the window is closed.
   win.on('closed', () => {
