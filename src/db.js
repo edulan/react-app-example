@@ -5,12 +5,11 @@ const db = new Dexie('react-app-example');
 
 export function migrate() {
   db.version(1).stores({
-    users: 'name,email,password'
+    users: 'id++,name,email,password'
   });
 
-  db.version(2).upgrade(() => {
-    // Will only be executed if a version below 2 was installed.
-    return db.users.add({
+  db.on('populate', () => {
+    db.users.add({
       name: 'Foo',
       email: 'foo@example.org',
       password: generateHash('olakease').toString(),
