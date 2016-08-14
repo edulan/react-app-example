@@ -1,4 +1,5 @@
 import { Router } from 'director';
+import { session } from './stores/';
 import { navigateTo } from './actions/';
 
 const routes = {
@@ -6,9 +7,14 @@ const routes = {
   '/login': 'login',
 };
 
+function isPublic(route) {
+  return route.indexOf('login') !== -1;
+}
+
 function canNavigateTo(route) {
-  // TODO: Implement authentication
-  return true;
+  if (isPublic(route)) return true;
+
+  return session.loggedIn;
 }
 
 function prepareRoutes(routes) {

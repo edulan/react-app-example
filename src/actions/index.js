@@ -1,8 +1,8 @@
 import { session, app, users } from '../stores';
 import { authenticateUser, fetchUsers } from '../services';
 
-export function doLogin({ email }) {
-  authenticateUser({ email })
+export function doLogin(credentials) {
+  authenticateUser(credentials)
     .then((result) => {
       session.loggedIn = true;
       session.currentUser = result;
