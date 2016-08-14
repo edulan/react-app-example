@@ -2,14 +2,30 @@ import { Router } from 'director';
 import { navigateTo } from './actions/';
 
 const routes = {
-  '/home': () => navigateTo('home'),
-  '/login': () => navigateTo('login'),
+  '/home': 'home',
+  '/login': 'login',
 };
 
+function canNavigateTo(route) {
+  // TODO: Implement authentication
+  return true;
+}
+
+function prepareRoutes(routes) {
+  return Object.keys(routes).reduce((memo, route) => {
+    const section = routes[route];
+
+    memo[route] = () => navigateTo(section);
+
+    return memo;
+  }, {});
+}
+
 // eslint-disable-next-line
-const router = Router(routes);
+const router = Router(prepareRoutes(routes));
 
 router.configure({
+  before: () => canNavigateTo(router.getRoute()),
   notfound: () => navigateTo('notFound'),
 });
 
@@ -21,5 +37,3 @@ export function enroute() {
 
   return Promise.resolve(router);
 }
-
-// TODO: Add Section (Route in react-router) components to handle each route.

@@ -4,8 +4,6 @@ import { observer } from 'mobx-react';
 import Status from './Status';
 import { doLogin, doLogout } from '../../actions/';
 
-import './styles/';
-
 @observer class Login extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,6 @@ import './styles/';
 
   performLogin() {
     if (!this.props.session.loggedIn) {
-      // TODO: Should Login component be responsible of navigation?
-      // Should doLogin action trigger navigation to home?
       doLogin({email: this.state.email});
     } else {
       doLogout();
@@ -47,7 +43,7 @@ import './styles/';
     const { email } = this.state;
 
     return (
-      <div className='Login'>
+      <section>
         <Status isLoggedIn={loggedIn} />
         <form onSubmit={this.onSubmit}>
           <label>Email address:</label>
@@ -56,7 +52,7 @@ import './styles/';
         <button onClick={this.onClick} disabled={!email}>
           {!loggedIn ? 'Login' : 'Logout'}
         </button>
-      </div>
+      </section>
     );
   }
 }

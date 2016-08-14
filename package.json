@@ -47,17 +47,19 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "crypto-js": "^3.1.6",
     "dexie": "^1.4.1",
     "director": "^1.2.8",
     "mobx": "^2.4.1",
     "mobx-react": "^3.5.3",
     "react": "^15.2.1",
+    "react-bootstrap": "^0.30.2",
     "react-dom": "^15.2.1"
   },
   "scripts": {
-    "start": "node ./scripts/start.js",
+    "build:watch": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
-    "electron": "electron ."
+    "start": "electron ."
   },
   "main": "index.js",
   "eslintConfig": {

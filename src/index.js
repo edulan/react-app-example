@@ -4,13 +4,11 @@ import ReactDOM from 'react-dom';
 import bootstrap from './bootstrap';
 import App from './components/App/';
 
-import { app, session } from './stores/';
-
-import './styles/';
+import { app, session, users } from './stores/';
 
 bootstrap(() => {
   ReactDOM.render(
-    <App app={app} session={session} />,
+    <App app={app} session={session} users={users} />,
     document.getElementById('root')
   );
 });

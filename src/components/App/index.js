@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
 import Login from '../Login/';
 import Home from '../Home/';
 import NotFound from '../NotFound/';
 
-import './styles/';
+import { getLoginUrl, getHomeUrl } from '../../routes';
 
-const sectionToComponentMap = {
+const sectionMap = {
   login: Login,
   home: Home,
 };
 
+/**
+ * App component acts as the application layout.
+ *
+ * TODO: Delegate section rendering to a section manager component
+ */
 @observer class App extends Component {
   renderSection(sectionName) {
-    const Section = sectionToComponentMap[sectionName] || NotFound;
+    const Section = sectionMap[sectionName] || NotFound;
 
     return <Section {...this.props} />;
   }
@@ -23,8 +29,18 @@ const sectionToComponentMap = {
     const { section } = this.props.app;
 
     return (
-      <div className='App'>
-        {this.renderSection(section)}
+      <div>
+        <header>
+          <Navbar className="inverse fixedTop">
+            <Nav>
+              <NavItem eventKey={1} href={getLoginUrl()}>Login</NavItem>
+              <NavItem eventKey={2} href={getHomeUrl()}>Home</NavItem>
+            </Nav>
+          </Navbar>
+        </header>
+        <main role="main">
+          {this.renderSection(section)}
+        </main>
       </div>
     );
   }

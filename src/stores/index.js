@@ -9,3 +9,8 @@ export const app = observable({
   // Default section
   section: 'login',
 });
+
+export const users = observable({
+  entities: [],
+  loading: false,
+});
