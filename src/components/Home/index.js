@@ -33,12 +33,11 @@ import { getUsers } from '../../actions/';
   render() {
     return (
       <div>
-        <h1>This is home</h1>
+        <h3>Users list</h3>
         {this.renderLoading()}
         <div>
           {this.renderUsers()}
         </div>
-        <p>Try a <a href='#/non-existing-route'>non existing route</a></p>
       </div>
     );
   }
