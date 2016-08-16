@@ -33,8 +33,8 @@ const sectionMap = {
         <header>
           <Navbar className="inverse fixedTop">
             <Nav>
-              <NavItem eventKey={1} href={getLoginUrl()}>Login</NavItem>
-              <NavItem eventKey={2} href={getHomeUrl()}>Home</NavItem>
+              <NavItem eventKey={1} href={getLoginUrl({prefixed: true})}>Login</NavItem>
+              <NavItem eventKey={2} href={getHomeUrl({prefixed: true})}>Home</NavItem>
             </Nav>
           </Navbar>
         </header>

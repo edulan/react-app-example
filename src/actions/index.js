@@ -1,6 +1,9 @@
 import { session, app, users } from '../stores';
 import { authenticateUser, fetchUsers } from '../services';
 
+import { setRoute } from '../router';
+import { getHomeUrl } from '../routes';
+
 export function doLogin(credentials) {
   authenticateUser(credentials)
     .then((result) => {
@@ -8,7 +11,7 @@ export function doLogin(credentials) {
       session.currentUser = result;
     })
     .then(() => {
-      navigateTo('home');
+      setRoute(getHomeUrl());
     })
     .catch(() => {
       session.loggedIn = false;

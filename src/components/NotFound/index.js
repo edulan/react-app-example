@@ -7,7 +7,7 @@ class NotFound extends Component {
       <div>
         Not Found :(
         <p>
-          Go back to <a href={getHomeUrl()}>home page</a>
+          Go back to <a href={getHomeUrl({prefixed: true})}>home page</a>
         </p>
       </div>
     );

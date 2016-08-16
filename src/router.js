@@ -1,6 +1,7 @@
 import { Router } from 'director';
 import { session } from './stores/';
 import { navigateTo } from './actions/';
+import { getLoginUrl } from './routes';
 
 const routes = {
   '/home': 'home',
@@ -31,15 +32,23 @@ function prepareRoutes(routes) {
 const router = Router(prepareRoutes(routes));
 
 router.configure({
-  before: () => canNavigateTo(router.getRoute()),
+  before: () => {
+    if (canNavigateTo(router.getRoute())) return true;
+    // Redirect to login
+    setRoute(getLoginUrl());
+    return false;
+  },
   notfound: () => navigateTo('notFound'),
 });
 
 export default router;
 
+export function setRoute(path) {
+  router.setRoute(path);
+}
+
 export function enroute() {
-  router.init();
-  router.setRoute('/login');
+  router.init(getLoginUrl());
 
   return Promise.resolve(router);
 }
