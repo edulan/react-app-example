@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+
 import { observer } from 'mobx-react';
 
+import Header from '../Header/';
 import Login from '../Login/';
 import Home from '../Home/';
 import NotFound from '../NotFound/';
-
-import { getLoginUrl, getHomeUrl } from '../../routes';
 
 const sectionMap = {
   login: Login,
@@ -19,6 +18,10 @@ const sectionMap = {
  * TODO: Delegate section rendering to a section manager component
  */
 @observer class App extends Component {
+  renderHeader(sectionName) {
+    return <Header section={sectionName} />;
+  }
+
   renderSection(sectionName) {
     const Section = sectionMap[sectionName] || NotFound;
 
@@ -31,12 +34,7 @@ const sectionMap = {
     return (
       <div>
         <header>
-          <Navbar className="inverse fixedTop">
-            <Nav>
-              <NavItem eventKey={1} href={getLoginUrl({prefixed: true})}>Login</NavItem>
-              <NavItem eventKey={2} href={getHomeUrl({prefixed: true})}>Home</NavItem>
-            </Nav>
-          </Navbar>
+          {this.renderHeader(section)}
         </header>
         <main role="main">
           {this.renderSection(section)}
