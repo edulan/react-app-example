@@ -14,3 +14,9 @@ export const users = observable({
   entities: [],
   loading: false,
 });
+
+export default {
+  app,
+  session,
+  users,
+};

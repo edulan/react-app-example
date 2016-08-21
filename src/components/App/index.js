@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import Header from '../Header/';
 import Login from '../Login/';
@@ -14,10 +13,8 @@ const sectionMap = {
 
 /**
  * App component acts as the application layout.
- *
- * TODO: Delegate section rendering to a section manager component
  */
-@observer class App extends Component {
+@inject('app') @observer class App extends Component {
   renderHeader(sectionName) {
     return <Header section={sectionName} />;
   }
@@ -25,7 +22,8 @@ const sectionMap = {
   renderSection(sectionName) {
     const Section = sectionMap[sectionName] || NotFound;
 
-    return <Section {...this.props} />;
+    // TODO: Delegate section rendering to a section manager component
+    return <Section />;
   }
 
   render() {

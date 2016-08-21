@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import User from './User';
 
 import { getUsers } from '../../actions/';
 
-@observer class Home extends Component {
+@inject('users') @observer class Home extends Component {
   componentWillMount() {
     getUsers();
   }

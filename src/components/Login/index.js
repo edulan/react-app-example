@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import Status from './Status';
 import Form from './Form';
 import { doLogin } from '../../actions/';
 
-@observer class Login extends Component {
+@inject('session') @observer class Login extends Component {
   constructor(props) {
     super(props);
 

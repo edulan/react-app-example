@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
 
 import bootstrap from './bootstrap';
-import App from './components/App/';
+import stores from './stores/';
 
-import { app, session, users } from './stores/';
+import App from './components/App/';
 
 bootstrap(() => {
   ReactDOM.render(
-    <App app={app} session={session} users={users} />,
+    <Provider {...stores}>
+      <App />
+    </Provider>,
     document.getElementById('root')
   );
 });
