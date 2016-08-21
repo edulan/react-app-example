@@ -1,6 +1,5 @@
 module.exports = {
   babelrc: false,
-  cacheDirectory: true,
   presets: [
     'babel-preset-es2015',
     'babel-preset-es2016',
