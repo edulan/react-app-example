@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
 import User from './User';
-import Modal from './Modal';
+import Modal from '../Modal';
 
 import { getUsers } from '../../actions/';
 
@@ -63,7 +63,9 @@ import { getUsers } from '../../actions/';
 
   renderModal() {
     return (
-      <Modal isShown={this.state.showModal} onClose={this.onClose} />
+      <Modal isShown={this.state.showModal} onClose={this.onClose}>
+        <p>Foo bar foo</p>
+      </Modal>
     );
   }
 

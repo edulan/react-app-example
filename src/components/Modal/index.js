@@ -1,17 +1,17 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-export default (props) => {
+export default ({ children, isShown, onClose }) => {
   return (
-    <Modal show={props.isShown} onHide={props.onClose}>
+    <Modal show={isShown} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Create new user</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Here comes user form...
+        {children}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onClose}>Cancel</Button>
+        <Button onClick={onClose}>Cancel</Button>
       </Modal.Footer>
     </Modal>
   );
