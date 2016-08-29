@@ -1,4 +1,7 @@
-import { observable } from 'mobx';
+import { observable, useStrict } from 'mobx';
+
+// Force strict mode so mutations are only allowed within actions.
+useStrict(true);
 
 export const session = observable({
   loggedIn: false,

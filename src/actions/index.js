@@ -1,46 +1,48 @@
+import { action } from 'mobx';
+
 import { session, app, users } from '../stores';
 import { authenticateUser, fetchUsers } from '../services';
 
 import { setRoute } from '../router';
 import { getHomeUrl } from '../routes';
 
-export function doLogin(credentials) {
+export const doLogin = action('doLogin', (credentials) => {
   authenticateUser(credentials)
-    .then((result) => {
+    .then(action((result) => {
       session.loggedIn = true;
       session.currentUser = result;
-    })
+    }))
     .then(() => {
       setRoute(getHomeUrl());
     })
-    .catch(() => {
+    .catch(action(() => {
       session.loggedIn = false;
       session.currentUser = {};
-    });
-}
+    }));
+});
 
-export function doLogout() {
+export const doLogout = action('doLogin', () => {
   session.loggedIn = false;
   session.currentUser = {};
-}
+});
 
-export function navigateTo(path) {
+export const navigateTo = action('navigateTo', (path) => {
   app.section = path;
-}
+});
 
-export function getUsers() {
+export const getUsers = action('getUsers', () => {
   users.loading = true;
 
   // NOTE: Simulate a bit of delay when querying DB
   setTimeout(() => {
     fetchUsers()
-      .then((result) => {
+      .then(action((result) => {
         users.entities.replace(result);
         users.loading = false;
-      })
-      .catch(() => {
+      }))
+      .catch(action(() => {
         users.entities.clear();
         users.loading = false;
-      });
+      }));
   }, 1000);
-}
+});
