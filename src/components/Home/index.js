@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
-import User from './User';
+import UserList from './UserList';
 import Modal from '../Modal';
-
-import { getUsers } from '../../actions/';
 
 @inject('users') @observer class Home extends Component {
   constructor(props) {
@@ -20,7 +18,7 @@ import { getUsers } from '../../actions/';
   }
 
   componentWillMount() {
-    getUsers();
+    this.props.users.getAll();
   }
 
   onOpen() {
@@ -32,7 +30,7 @@ import { getUsers } from '../../actions/';
   }
 
   renderLoading() {
-    if (!this.props.users.loading || this.props.users.entities.length > 0) {
+    if (!this.props.users.loading) {
       return null;
     }
 
@@ -52,13 +50,17 @@ import { getUsers } from '../../actions/';
   }
 
   renderUsers() {
-    if (this.props.users.entities.length === 0) {
+    if (this.props.users.loading) {
+      return null;
+    }
+
+    if (this.props.users.isEmpty === 0) {
       return (
         <p>No users found</p>
       );
     }
 
-    return this.props.users.entities.map((user, id) => <User key={id} user={user} />);
+    return <UserList users={this.props.users} />;
   }
 
   renderModal() {
