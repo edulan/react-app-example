@@ -1,5 +1,7 @@
 import { observable, useStrict } from 'mobx';
 
+import Users from './users';
+
 // Force strict mode so mutations are only allowed within actions.
 useStrict(true);
 
@@ -13,13 +15,4 @@ export const app = observable({
   section: 'login',
 });
 
-export const users = observable({
-  entities: [],
-  loading: false,
-});
-
-export default {
-  app,
-  session,
-  users,
-};
+export const users = new Users();
