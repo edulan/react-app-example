@@ -1,3 +1,3 @@
-var conf = require('../../config/babel.test');
+var conf = require('../../config/babel.dev');
 
 require('babel-core/register')(conf);
