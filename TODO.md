@@ -4,6 +4,7 @@ and show a warn with detailed message on how to start webpack server.
 * Setup ESLint
 
 ## IN PROGRESS
+* Update README
 * Add bootstrap and some page layout
 
 ## DONE
