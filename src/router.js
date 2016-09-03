@@ -1,54 +1,33 @@
+import { autorun } from 'mobx';
 import { Router } from 'director';
-import { session } from './stores/';
-import { navigateTo } from './actions/';
+import { view } from './stores/';
 import { getLoginUrl } from './routes';
 
-const routes = {
-  '/home': 'home',
-  '/login': 'login',
-};
+const DEFAULT_ROUTE = getLoginUrl();
 
-function isPublic(route) {
-  return route.indexOf('login') !== -1;
-}
-
-function canNavigateTo(route) {
-  if (isPublic(route)) return true;
-
-  return session.loggedIn;
-}
-
-function prepareRoutes(routes) {
-  return Object.keys(routes).reduce((memo, route) => {
-    const section = routes[route];
-
-    memo[route] = () => navigateTo(section);
-
-    return memo;
-  }, {});
-}
-
-// eslint-disable-next-line
-const router = Router(prepareRoutes(routes));
-
-router.configure({
-  before: () => {
-    if (canNavigateTo(router.getRoute())) return true;
-    // Redirect to login
-    setRoute(getLoginUrl());
-    return false;
-  },
-  notfound: () => navigateTo('notFound'),
+const router = new Router({
+  '/login': () => view.showLogin(),
+  '/home': () => view.showUsers(),
 });
 
-export default router;
-
-export function setRoute(path) {
-  router.setRoute(path);
-}
+router.configure({
+  notfound: () => view.showNotFound(),
+});
 
 export function enroute() {
-  router.init(getLoginUrl());
+  router.init(DEFAULT_ROUTE);
+
+  // We need to update the url on every view state change
+  autorun(() => {
+    // TODO: Improve this
+    if (!view.currentView) return;
+
+    const path = view.currentPath;
+
+    if (path !== router.getRoute()) {
+      router.setRoute(path);
+    }
+  });
 
   return Promise.resolve(router);
 }

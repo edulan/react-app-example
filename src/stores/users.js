@@ -1,29 +1,36 @@
 import { observable, computed, action } from 'mobx';
-import { fetchUsers } from '../services';
+import { fetchUsers, deleteUser } from '../services';
 
-class Users {
+class UsersStore {
   @observable entities = [];
   @observable loading = false;
 
   @action getAll() {
     this.loading = true;
 
-    // NOTE: Simulate a bit of delay when querying DB
-    setTimeout(() => {
-      fetchUsers()
-        .then(action((result) => {
-          this.entities.replace(result);
-          this.loading = false;
-        }))
-        .catch(action((error) => {
-          this.loading = false;
-        }));
-    }, 1000);
+    fetchUsers()
+      .then(action((result) => {
+        this.entities.replace(result);
+        this.loading = false;
+      }))
+      .catch(action((error) => {
+        this.loading = false;
+      }));
   }
 
   @computed get isEmpty() {
     return this.entities.length === 0;
   }
+
+  @action destroy(user) {
+    deleteUser(user.id)
+      .then(action(() => {
+        this.entities.remove(user);
+      }))
+      .catch(() => {
+        console.warn('Cannot delete user');
+      })
+  }
 }
 
-export default Users;
+export default UsersStore;

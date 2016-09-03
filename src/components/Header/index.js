@@ -14,7 +14,7 @@ function renderLoginLink(section) {
 }
 
 function renderHomeLink(section) {
-  if (section !== 'home') return null;
+  if (section !== 'users') return null;
 
   return (
     <NavItem eventKey={2} href={getHomeUrl({prefixed: true})}>

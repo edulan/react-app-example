@@ -5,7 +5,7 @@ import { ButtonToolbar, Button } from 'react-bootstrap';
 import UserList from './UserList';
 import Modal from '../Modal';
 
-@inject('users') @observer class Home extends Component {
+@inject('users') @observer class Users extends Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +54,7 @@ import Modal from '../Modal';
       return null;
     }
 
-    if (this.props.users.isEmpty === 0) {
+    if (this.props.users.isEmpty) {
       return (
         <p>No users found</p>
       );
@@ -88,4 +88,4 @@ import Modal from '../Modal';
   }
 }
 
-export default Home;
+export default Users;

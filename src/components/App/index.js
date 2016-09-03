@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 
 import Header from '../Header/';
 import Login from '../Login/';
-import Home from '../Home/';
+import Users from '../Users/';
 import NotFound from '../NotFound/';
 
-const sectionMap = {
+const viewMap = {
   login: Login,
-  home: Home,
+  users: Users,
 };
 
 /**
  * App component acts as the application layout.
  */
-@inject('app') @observer class App extends Component {
-  renderHeader(sectionName) {
-    return <Header section={sectionName} />;
+@inject('view') @observer class App extends Component {
+  renderHeader({ name }) {
+    return <Header section={name} />;
   }
 
-  renderSection(sectionName) {
-    const Section = sectionMap[sectionName] || NotFound;
+  renderErrors() {
+    if (!this.props.view.hasErrors) return null;
 
-    // TODO: Delegate section rendering to a section manager component
-    return <Section />;
+    return (
+      <section>      
+        <Alert bsStyle='danger'>
+          <p>{this.props.view.lastError}</p>
+        </Alert>
+      </section>
+    );
+  }
+
+  renderCurrentView({ name }) {
+    const View = viewMap[name] || NotFound;
+
+    return <View />;
   }
 
   render() {
-    const { section } = this.props.app;
+    const { view } = this.props;
 
     return (
       <div>
         <header>
-          {this.renderHeader(section)}
+          {this.renderHeader(view.currentView)}
         </header>
         <main role="main">
-          {this.renderSection(section)}
+          {this.renderErrors()}
+          {this.renderCurrentView(view.currentView)}
         </main>
       </div>
     );

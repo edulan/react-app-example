@@ -1,18 +1,10 @@
-import { observable, useStrict } from 'mobx';
+import { useStrict } from 'mobx';
 
-import Users from './users';
+import ViewStore from './view';
+import UsersStore from './users';
 
 // Force strict mode so mutations are only allowed within actions.
 useStrict(true);
 
-export const session = observable({
-  loggedIn: false,
-  currentUser: {},
-});
-
-export const app = observable({
-  // Default section
-  section: 'login',
-});
-
-export const users = new Users();
+export const view = new ViewStore();
+export const users = new UsersStore();

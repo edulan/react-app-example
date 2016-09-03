@@ -14,7 +14,7 @@ describe('<Header/>', () => {
   });
 
   it('shows home link if current section is home', () => {
-    const wrapper = mount(<Header section='home'/>);
+    const wrapper = mount(<Header section='users'/>);
     expect(wrapper.find('a')).to.have.attr('href').equal('#/home');
   });
 

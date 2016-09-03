@@ -1,5 +1,5 @@
 import db from '../db';
-import { getUserByEmail, getAllUsers } from '../queries/';
+import { getUserByEmail, getAllUsers, destroyUser } from '../queries/';
 
 import { SHA512 as generateHash } from 'crypto-js';
 
@@ -23,6 +23,18 @@ export function fetchUsers() {
       }
 
       resolve(users);
+    });
+  });
+}
+
+export function deleteUser(id) {
+  return new Promise((resolve, reject) => {
+    destroyUser(db, id).then((deleteCount) => {
+      if (deleteCount === 0) {
+        reject();
+      }
+
+      resolve();
     });
   });
 }

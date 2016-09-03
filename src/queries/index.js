@@ -5,3 +5,7 @@ export function getUserByEmail(db, email) {
 export function getAllUsers(db) {
   return db.users.toArray();
 }
+
+export function destroyUser(db, id) {
+  return db.users.where(':id').equals(id).delete();
+}

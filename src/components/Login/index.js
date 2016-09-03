@@ -3,9 +3,8 @@ import { inject, observer } from 'mobx-react';
 
 import Status from './Status';
 import Form from './Form';
-import { doLogin } from '../../actions/';
 
-@inject('session') @observer class Login extends Component {
+@inject('view') @observer class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -13,15 +12,15 @@ import { doLogin } from '../../actions/';
   }
 
   performLogin(credentials) {
-    doLogin(credentials);
+    this.props.view.doLogin(credentials);
   }
 
   render() {
-    const { loggedIn } = this.props.session;
+    const { isLoggedIn } = this.props.view;
 
     return (
       <section>
-        <Status isLoggedIn={loggedIn} />
+        <Status isLoggedIn={isLoggedIn} />
         <Form onSubmit={this.performLogin} />
       </section>
     );
