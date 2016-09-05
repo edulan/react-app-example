@@ -62,6 +62,7 @@
     "postcss-loader": "0.9.1",
     "promise": "7.1.1",
     "react-addons-test-utils": "^15.3.0",
+    "react-hot-loader": "^3.0.0-beta.1",
     "rimraf": "2.5.4",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
@@ -80,6 +81,7 @@
     "react-dom": "^15.2.1"
   },
   "scripts": {
+    "clear": "rm -rf ~/.config/react-app-example/",
     "build:watch": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
     "start": "NODE_ENV=development electron .",

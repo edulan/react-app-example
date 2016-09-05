@@ -11,3 +11,4 @@ and show a warn with detailed message on how to start webpack server.
 * Try out dexie package
 * Try out director for routes
 * Use electron to run tests (http://webuild.envato.com/blog/running-headless-javascript-testing-with-electron-on-any-ci-server/)
+* Integrate HMR

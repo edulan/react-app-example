@@ -24,7 +24,7 @@ const viewMap = {
     if (!this.props.view.hasErrors) return null;
 
     return (
-      <section>      
+      <section>
         <Alert bsStyle='danger'>
           <p>{this.props.view.lastError}</p>
         </Alert>

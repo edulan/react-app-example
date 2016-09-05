@@ -8,8 +8,9 @@ var paths = require('./paths');
 module.exports = {
   devtool: 'eval',
   entry: [
+    require.resolve('react-hot-loader/patch'),
     require.resolve('webpack-dev-server/client') + '?/',
-    require.resolve('webpack/hot/dev-server'),
+    require.resolve('webpack/hot/only-dev-server'),
     require.resolve('./polyfills'),
     path.join(paths.appSrc, 'index')
   ],

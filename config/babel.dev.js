@@ -5,6 +5,7 @@ module.exports = {
     'babel-preset-stage-1'
   ].map(require.resolve),
   plugins: [
+    'react-hot-loader/babel',
     'babel-plugin-transform-decorators-legacy',
     // es2015 preset plugins
     'babel-plugin-transform-es2015-block-scoped-functions',
