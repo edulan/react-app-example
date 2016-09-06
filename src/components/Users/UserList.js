@@ -1,23 +1,34 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { Table } from 'react-bootstrap';
 
-import User from './User';
+import UserRow from './UserRow';
 
 function UserList({ users }) {
   const onDelete = (user) => this.props.users.destroy(user);
 
   return (
-    <div>
-      {users.entities.map((user) => {
-        return (
-          <User
+    <Table striped bordered condensed hover>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.entities.map((user) => {
+          return (
+            <UserRow
             key={1}
             user={user}
             onDelete={onDelete}
-          />
-        );
-      })}
-    </div>
+            />
+          );
+        })}
+      </tbody>
+    </Table>
   );
 }
 

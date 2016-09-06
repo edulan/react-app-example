@@ -33,6 +33,7 @@ class ViewStore {
         this.currentView = {
           name: 'users',
         };
+        this.lastError = null;
       }))
       .catch(action((error) => {
         this.currentUser = null;
