@@ -1,11 +1,15 @@
-export function getUserByEmail(db, email) {
+export function getUserByEmailQuery(db, email) {
   return db.users.where('email').equalsIgnoreCase(email).first();
 }
 
-export function getAllUsers(db) {
+export function getAllUsersQuery(db) {
   return db.users.toArray();
 }
 
-export function destroyUser(db, id) {
+export function destroyUserQuery(db, id) {
   return db.users.where(':id').equals(id).delete();
+}
+
+export function createUserQuery(db, user) {
+  return db.users.add(user);
 }

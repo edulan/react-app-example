@@ -1,37 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({
-      email: 'foo@example.org',
-      password: ''
-    });
-  }
+// NOTE: Somehow extending Component is causing an error when updating state.
+// With createClass is not happening anymore.
+const Form = React.createClass({
+  getInitialState() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+    };
+  },
 
   onChange(event) {
     if (!event.target.name) return;
 
-    this.setState({password: event.target.value});
-  }
+    event.preventDefault();
+    this.setState({[event.target.name]: event.target.value});
+  },
 
   onSubmit(event) {
-    const { email, password } = this.state;
+    const {  name, email, password } = this.state;
 
     event.preventDefault();
-    this.props.onSubmit({email, password});
-  }
+    this.props.onSubmit({ name, email, password});
+  },
 
   render() {
     return (
       <form acceptCharset="UTF-8" role="form" onSubmit={this.onSubmit}>
+        <FormGroup>
+          <ControlLabel htmlFor="name">Name</ControlLabel>
+          <FormControl
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            value={this.state.name}
+            onChange={this.onChange}
+            required
+          />
+        </FormGroup>
         <FormGroup>
           <ControlLabel htmlFor="email">Email</ControlLabel>
           <FormControl
@@ -58,11 +67,11 @@ class Form extends Component {
         <FormControl
           type="submit"
           bsClass="form-control btn btn-primary"
-          value="Login"
+          value="Create"
         />
       </form>
     );
   }
-}
+});
 
 export default Form;

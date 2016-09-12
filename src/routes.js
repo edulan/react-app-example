@@ -7,3 +7,7 @@ export function getHomeUrl(options = { prefixed: false }) {
 export function getLoginUrl(options = { prefixed: false }) {
   return `${options.prefixed ? PATH_PREFIX : ''}/login`;
 }
+
+export function getNewUserUrl(options = { prefixed: false }) {
+  return `${options.prefixed ? PATH_PREFIX : ''}/users/new`;
+}

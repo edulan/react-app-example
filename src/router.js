@@ -8,6 +8,7 @@ const DEFAULT_ROUTE = getLoginUrl();
 const router = new Router({
   '/login': () => view.showLogin(),
   '/home': () => view.showUsers(),
+  '/users/new': () => view.showNewUser(),
 });
 
 router.configure({

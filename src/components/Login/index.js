@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import Status from './Status';
 import Form from './Form';
 
 @inject('view') @observer class Login extends Component {
@@ -16,11 +15,9 @@ import Form from './Form';
   }
 
   render() {
-    const { isLoggedIn } = this.props.view;
-
     return (
       <section>
-        <Status isLoggedIn={isLoggedIn} />
+        <h3>Log in</h3>
         <Form onSubmit={this.performLogin} />
       </section>
     );

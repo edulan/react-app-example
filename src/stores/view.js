@@ -17,6 +17,8 @@ class ViewStore {
         return '/login';
       case 'users':
         return '/home';
+      case 'new_user':
+        return '/users/new';
       default:
         return '/login';
     }
@@ -46,7 +48,6 @@ class ViewStore {
   }
 
   @action showLogin() {
-    console.log('showLogin');
     this.currentView = {
       name: 'login',
     };
@@ -59,9 +60,20 @@ class ViewStore {
       return;
     }
 
-    console.log('showUsers');
     this.currentView = {
       name: 'users',
+    };
+  }
+
+  @action showNewUser() {
+    // TODO: Add authentication
+    if (!this.isLoggedIn) {
+      this.showLogin();
+      return;
+    }
+
+    this.currentView = {
+      name: 'new_user',
     };
   }
 }

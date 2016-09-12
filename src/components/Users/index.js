@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
+import { getNewUserUrl } from '../../routes';
+
 import UserList from './UserList';
 import Modal from '../Modal';
 
@@ -42,7 +44,7 @@ import Modal from '../Modal';
   renderActions() {
     return (
       <ButtonToolbar>
-        <Button bsStyle='primary' onClick={this.onOpen} disabled={this.state.showModal}>
+        <Button bsStyle='primary' href={getNewUserUrl({prefixed: true})}>
           Create new
         </Button>
       </ButtonToolbar>

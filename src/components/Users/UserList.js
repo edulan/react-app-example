@@ -21,7 +21,7 @@ function UserList({ users }) {
         {users.entities.map((user) => {
           return (
             <UserRow
-            key={1}
+            key={user.id}
             user={user}
             onDelete={onDelete}
             />

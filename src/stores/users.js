@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
-import { fetchUsers, deleteUser } from '../services';
+import { SHA512 as generateHash } from 'crypto-js';
+import { fetchUsers, createUser, destroyUser } from '../services';
 
 class UsersStore {
   @observable entities = [];
@@ -22,8 +23,23 @@ class UsersStore {
     return this.entities.length === 0;
   }
 
+  @action create(user) {
+    const extendedUser = {
+      ...user,
+      password: generateHash(user.password).toString(),
+    };
+
+    return createUser(extendedUser)
+      .then(action(() => {
+        this.entities.push(extendedUser);
+      }))
+      .catch(() => {
+        console.warn('Cannot create user');
+      })
+  }
+
   @action destroy(user) {
-    deleteUser(user.id)
+    destroyUser(user.id)
       .then(action(() => {
         this.entities.remove(user);
       }))

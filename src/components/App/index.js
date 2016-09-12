@@ -5,11 +5,13 @@ import { inject, observer } from 'mobx-react';
 import Header from '../Header/';
 import Login from '../Login/';
 import Users from '../Users/';
+import UsersNew from '../Users/New';
 import NotFound from '../NotFound/';
 
 const viewMap = {
   login: Login,
   users: Users,
+  new_user: UsersNew,
 };
 
 /**
