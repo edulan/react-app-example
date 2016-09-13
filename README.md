@@ -33,9 +33,9 @@ npm test
 * index.js (electron app)
 
 ### Architecture
-This applications follows MobX conventions, in which everything is based on state and changes in the UI are reactions to that changes.
+This applications follows MobX conventions, in which everything is based on state and changes in the UI are reactions to state changes.
 
-Components only receive stores via props and interact with the external world via those stores.
+Components only receive stores via props and interact with the external world via those stores. Stores are globally available for components via a `Provider`.
 
 Stores exposes a simple API to abstract components from outside world. Stores uses services to perform all actions that mutate state.
 
@@ -47,7 +47,10 @@ Queries encapsulates persistance specific domain language. They are kind of adap
 Bootstrap process is responsible of setting up all the needed engines for application to start. Currently there are 2 main ones:
 
 * Prepare DB migrations
-* Prepare routing
+* Initialize routing
+
+### DB
+IndexedDB is used as persistance engine. Dexie is the wrapper around it that the application uses to commmunitcate with DB storage.
 
 ### Routing
 Based on state
@@ -59,4 +62,4 @@ Uses hashed passwords
 In progress. Evaluating react-intl
 
 ### Tests
-Uses Electron and Mocha for testing
+Uses Electron and Mocha for testing. Enzyme is the framework election for testing components
