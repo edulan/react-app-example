@@ -1,11 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
+import { expect } from 'chai';
 
-import NotFound from '../src/components/NotFound';
-
-chai.use(chaiEnzyme());
+import NotFound from 'components/NotFound';
 
 describe('<NotFound/>', () => {
   it('has a link to navigate to home', () => {

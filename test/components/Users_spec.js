@@ -1,12 +1,9 @@
 import React from 'react';
 import { observable, action, computed } from 'mobx';
 import { mount } from 'enzyme';
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
+import { expect } from 'chai';
 
-import Users from '../src/components/Users';
-
-chai.use(chaiEnzyme());
+import Users from 'components/Users';
 
 class DummyUsersStore {
   @observable entities;

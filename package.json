@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "app-module-path": "1.1.0",
     "autoprefixer": "6.3.7",
     "babel-core": "6.11.4",
     "babel-eslint": "6.1.2",
@@ -86,7 +87,7 @@
     "build:watch": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
     "start": "NODE_ENV=development electron .",
-    "test": "electron-mocha --require test/helpers/browser.js test/*_spec.js --renderer --recursive"
+    "test": "electron-mocha --require test/helpers/browser.js test/**/*_spec.js --renderer --recursive --check-leaks"
   },
   "main": "index.js",
   "eslintConfig": {

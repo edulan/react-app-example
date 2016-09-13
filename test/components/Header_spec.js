@@ -1,11 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
+import { expect } from 'chai';
 
-import Header from '../src/components/Header';
-
-chai.use(chaiEnzyme());
+import Header from 'components/Header';
 
 describe('<Header/>', () => {
   it('shows login link if current section is login', () => {
