@@ -10,11 +10,11 @@ class UsersStore {
     this.loading = true;
 
     fetchUsers()
-      .then(action((result) => {
+      .then(action('fetchUsersSuccess', (result) => {
         this.entities.replace(result);
         this.loading = false;
       }))
-      .catch(action((error) => {
+      .catch(action('fetchUsersError', (error) => {
         this.loading = false;
       }));
   }

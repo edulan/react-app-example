@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 
 import Header from '../Header/';
 import Login from '../Login/';
 import Users from '../Users/';
 import UsersNew from '../Users/New';
 import NotFound from '../NotFound/';
+
 
 const viewMap = {
   login: Login,
@@ -20,6 +22,12 @@ const viewMap = {
 @inject('view') @observer class App extends Component {
   renderHeader({ name }) {
     return <Header section={name} />;
+  }
+
+  renderDevTools() {
+    if (process.env.NODE_ENV !== 'development') return;
+
+    return <DevTools position={{top: 72, right: 20}} />;
   }
 
   renderErrors() {
@@ -52,6 +60,7 @@ const viewMap = {
           {this.renderErrors()}
           {this.renderCurrentView(view.currentView)}
         </main>
+        {this.renderDevTools()}
       </div>
     );
   }

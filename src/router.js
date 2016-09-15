@@ -19,7 +19,7 @@ export function enroute() {
   router.init(DEFAULT_ROUTE);
 
   // We need to update the url on every view state change
-  autorun(() => {
+  autorun('Router setPath' ,() => {
     // TODO: Improve this
     if (!view.currentView) return;
 

@@ -30,14 +30,14 @@ class ViewStore {
 
   @action doLogin(credentials) {
     authenticateUser(credentials)
-      .then(action((result) => {
+      .then(action('loginSuccess', (result) => {
         this.currentUser = result;
         this.currentView = {
           name: 'users',
         };
         this.lastError = null;
       }))
-      .catch(action((error) => {
+      .catch(action('loginError', (error) => {
         this.currentUser = null;
         this.lastError = error;
       }));

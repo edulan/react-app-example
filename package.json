@@ -38,6 +38,7 @@
     "gzip-size": "3.0.0",
     "html-webpack-plugin": "2.22.0",
     "json-loader": "0.5.4",
+    "mobx-react-devtools": "^4.2.6",
     "mocha": "3.0.2",
     "opn": "4.0.2",
     "postcss-loader": "0.9.1",
