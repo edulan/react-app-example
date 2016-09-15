@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { Row, Col, Form, FormGroup, FormControl, ButtonToolbar, Button } from 'react-bootstrap';
+import debounce from 'lodash.debounce';
 
 import { getNewUserUrl } from '../../routes';
 
@@ -17,6 +18,8 @@ import Modal from '../Modal';
 
     this.onOpen = this.onOpen.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.performSearch = debounce(this.performSearch.bind(this), 300);
   }
 
   componentDidMount() {
@@ -32,6 +35,16 @@ import Modal from '../Modal';
     this.setState({showModal: false});
   }
 
+  onChange(event) {
+    event.preventDefault();
+
+    this.performSearch({name: event.target.value})
+  }
+
+  performSearch(criteria) {
+    this.props.users.getBy(criteria);
+  }
+
   renderLoading() {
     if (!this.props.users.loading) {
       return null;
@@ -44,11 +57,22 @@ import Modal from '../Modal';
 
   renderActions() {
     return (
-      <ButtonToolbar>
-        <Button bsStyle='primary' href={getNewUserUrl({prefixed: true})}>
-          Create new
-        </Button>
-      </ButtonToolbar>
+      <Row>
+        <Col md={8}>
+          <ButtonToolbar>
+            <Button bsStyle='primary' href={getNewUserUrl({prefixed: true})}>
+              Create new
+            </Button>
+          </ButtonToolbar>
+        </Col>
+        <Col md={4}>
+          <Form onSubmit={(event) => event.preventDefault()} inline>
+            <FormGroup>
+              <FormControl type="text" placeholder="Search" onChange={this.onChange} />
+            </FormGroup>
+          </Form>
+        </Col>
+      </Row>
     );
   }
 

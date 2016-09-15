@@ -1,6 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import { SHA512 as generateHash } from 'crypto-js';
-import { fetchUsers, createUser, destroyUser } from '../services';
+import { fetchUsers, searchUsers, createUser, destroyUser } from '../services';
 
 class UsersStore {
   @observable entities = [];
@@ -10,12 +10,23 @@ class UsersStore {
     this.loading = true;
 
     fetchUsers()
-      .then(action('fetchUsersSuccess', (result) => {
+      .then(action('fetchSuccess', (result) => {
         this.entities.replace(result);
         this.loading = false;
       }))
-      .catch(action('fetchUsersError', (error) => {
+      .catch(action('fetchError', (error) => {
         debugger;
+        this.loading = false;
+      }));
+  }
+
+  @action getBy(criteria) {
+    searchUsers(criteria)
+      .then(action('searchSuccess', (result) => {
+        this.entities.replace(result);
+        this.loading = false;
+      }))
+      .catch(action('searchError', (error) => {
         this.loading = false;
       }));
   }
