@@ -11,7 +11,11 @@ import Form from './Form';
   }
 
   performLogin(credentials) {
-    this.props.view.doLogin(credentials);
+    this.props.view.doLogin(credentials)
+      .then(
+        () => this.props.view.showUsers(),
+        () => {},
+      );
   }
 
   render() {

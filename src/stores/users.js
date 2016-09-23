@@ -15,6 +15,7 @@ class UsersStore {
         this.loading = false;
       }))
       .catch(action('fetchUsersError', (error) => {
+        debugger;
         this.loading = false;
       }));
   }
@@ -30,7 +31,7 @@ class UsersStore {
     };
 
     return createUser(extendedUser)
-      .then(action(() => {
+      .then(action('createSuccess', () => {
         this.entities.push(extendedUser);
       }))
       .catch(() => {
@@ -40,7 +41,7 @@ class UsersStore {
 
   @action destroy(user) {
     destroyUser(user.id)
-      .then(action(() => {
+      .then(action('destroySuccess', () => {
         this.entities.remove(user);
       }))
       .catch(() => {

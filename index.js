@@ -1,4 +1,7 @@
 const { app, BrowserWindow } = require('electron')
+const installExtension = require('electron-devtools-installer').default
+const REACT_DEVELOPER_TOOLS = require('electron-devtools-installer').REACT_DEVELOPER_TOOLS
+const chalk = require('chalk')
 
 function isDevelopment() {
   return process.env.NODE_ENV === 'development'
@@ -8,10 +11,36 @@ const APP_NAME = isDevelopment() ? 'React example (development)' : 'React exampl
 
 let win
 
+function onReady() {
+  if (isDevelopment()) {
+    installDevExtensions()
+  }
+
+  createWindow()
+}
+
+function installDevExtensions() {
+  console.log(chalk.blue(`Installing DevTools extensions...`));
+
+  return new Promise((resolve, reject) => {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => {
+        console.log(`${chalk.green(`✓`)} ${name}`)
+        console.log()
+        resolve()
+      })
+      .catch((err) => {
+        console.log(chalk.red(`An error occurred: ${err}`))
+        console.log()
+        reject()
+      })
+  })
+}
+
 function createWindow () {
   win = new BrowserWindow({title: APP_NAME})
 
-  win.maximize();
+  win.maximize()
 
   if (isDevelopment()) {
     win.loadURL(`http://localhost:${process.env.PORT || 3000}/`)
@@ -28,7 +57,7 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', onReady)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
