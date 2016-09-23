@@ -1,11 +1,13 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 
 import { getLoginUrl, getHomeUrl } from '../../routes';
 
-function renderLoginLink(section) {
-  if (section !== 'login') return null;
+function renderLoginLink(view) {
+  const { name } = view.currentView;
+
+  if (name !== 'login') return null;
 
   return (
     <NavItem eventKey={1} href={getLoginUrl({prefixed: true})}>
@@ -14,8 +16,26 @@ function renderLoginLink(section) {
   );
 }
 
-function renderHomeLink(section) {
-  if (section !== 'users') return null;
+function renderLogoutLink(view) {
+  const { name } = view.currentView;
+
+  if (name === 'login') return null;
+
+  function onClick() {
+    view.doLogout().then(() => view.showLogin());
+  }
+
+  return (
+    <NavItem eventKey={1}>
+      <Button onClick={onClick}>Logout</Button>
+    </NavItem>
+  );
+}
+
+function renderHomeLink(view) {
+  const { name } = view.currentView;
+
+  if (name !== 'users') return null;
 
   return (
     <NavItem eventKey={2} href={getHomeUrl({prefixed: true})}>
@@ -25,13 +45,12 @@ function renderHomeLink(section) {
 }
 
 function Header({ view }) {
-  const { name } = view.currentView;
-
   return (
     <Navbar className="inverse fixedTop">
       <Nav>
-        {renderLoginLink(name)}
-        {renderHomeLink(name)}
+        {renderLoginLink(view)}
+        {renderLogoutLink(view)}
+        {renderHomeLink(view)}
       </Nav>
     </Navbar>
   );

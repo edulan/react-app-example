@@ -46,7 +46,11 @@ class ViewStore {
   }
 
   @action doLogout() {
-    this.currentUser = null;
+    return Promise.resolve().then(
+      action('logoutSuccess' ,() => {
+        this.currentUser = null;
+      })
+    );
   }
 
   @action showLogin({ navigating = false } = {}) {
