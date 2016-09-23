@@ -1,4 +1,5 @@
 import React from 'react';
+import { inject, observer } from 'mobx-react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import { getLoginUrl, getHomeUrl } from '../../routes';
@@ -23,13 +24,17 @@ function renderHomeLink(section) {
   );
 }
 
-export default ({ section }) => {
+function Header({ view }) {
+  const { name } = view.currentView;
+
   return (
     <Navbar className="inverse fixedTop">
       <Nav>
-        {renderLoginLink(section)}
-        {renderHomeLink(section)}
+        {renderLoginLink(name)}
+        {renderHomeLink(name)}
       </Nav>
     </Navbar>
   );
 }
+
+export default inject('view')(observer(Header));

@@ -6,9 +6,9 @@ import { getLoginUrl } from './routes';
 const DEFAULT_ROUTE = getLoginUrl();
 
 const router = new Router({
-  '/login': () => view.showLogin(),
-  '/home': () => view.showUsers(),
-  '/users/new': () => view.showNewUser(),
+  '/login': () => view.showLogin({navigating: true}),
+  '/home': () => view.showUsers({navigating: true}),
+  '/users/new': () => view.showNewUser({navigating: true}),
 });
 
 router.configure({
@@ -19,13 +19,17 @@ export function enroute() {
   router.init(DEFAULT_ROUTE);
 
   // We need to update the url on every view state change
-  autorun(() => {
+  autorun('Router setPath', () => {
+    console.log(`Router setting path...`);
+
     // TODO: Improve this
     if (!view.currentView) return;
+    if (view.currentView.navigating) return;
 
     const path = view.currentPath;
 
     if (path !== router.getRoute()) {
+      console.log(`New path ${path}`);
       router.setRoute(path);
     }
   });

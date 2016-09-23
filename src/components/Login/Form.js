@@ -19,7 +19,7 @@ class Form extends Component {
   onChange(event) {
     if (!event.target.name) return;
 
-    this.setState({password: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
 
   onSubmit(event) {

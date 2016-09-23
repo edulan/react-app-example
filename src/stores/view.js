@@ -29,51 +29,56 @@ class ViewStore {
   }
 
   @action doLogin(credentials) {
-    authenticateUser(credentials)
-      .then(action((result) => {
-        this.currentUser = result;
-        this.currentView = {
-          name: 'users',
-        };
-        this.lastError = null;
-      }))
-      .catch(action((error) => {
-        this.currentUser = null;
-        this.lastError = error;
-      }));
+    return new Promise((resolve, reject) => {
+      authenticateUser(credentials).then(
+        action('loginSuccess', (result) => {
+          this.currentUser = result;
+          this.lastError = null;
+          resolve(this.currentUser);
+        }),
+        action('loginError', (error) => {
+          this.currentUser = null;
+          this.lastError = error;
+          reject(this.lastError);
+        })
+      );
+    });
   }
 
   @action doLogout() {
     this.currentUser = null;
   }
 
-  @action showLogin() {
+  @action showLogin({ navigating = false } = {}) {
     this.currentView = {
       name: 'login',
+      navigating,
     };
   }
 
-  @action showUsers() {
+  @action showUsers({ navigating = false } = {}) {
     // TODO: Add authentication
     if (!this.isLoggedIn) {
-      this.showLogin();
+      this.showLogin({navigating});
       return;
     }
 
     this.currentView = {
       name: 'users',
+      navigating,
     };
   }
 
-  @action showNewUser() {
+  @action showNewUser({ navigating = false } = {}) {
     // TODO: Add authentication
     if (!this.isLoggedIn) {
-      this.showLogin();
+      this.showLogin({navigating});
       return;
     }
 
     this.currentView = {
       name: 'new_user',
+      navigating,
     };
   }
 }

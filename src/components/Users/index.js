@@ -19,7 +19,8 @@ import Modal from '../Modal';
     this.onClose = this.onClose.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    // TODO: Investigate why this action is not logged on devtools
     this.props.users.getAll();
   }
 

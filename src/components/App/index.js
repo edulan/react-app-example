@@ -1,60 +1,34 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import { inject, observer } from 'mobx-react';
+import React from 'react';
+import DevTools, { setLogEnabled } from 'mobx-react-devtools';
 
+import Alert from './Alert';
 import Header from '../Header/';
-import Login from '../Login/';
-import Users from '../Users/';
-import UsersNew from '../Users/New';
-import NotFound from '../NotFound/';
+import SectionManager from '../SectionManager/';
 
-const viewMap = {
-  login: Login,
-  users: Users,
-  new_user: UsersNew,
-};
+function renderDevTools() {
+  if (process.env.NODE_ENV !== 'development') return null;
+
+  setLogEnabled(true);
+
+  return <DevTools position={{top: 72, right: 20}} />;
+}
 
 /**
  * App component acts as the application layout.
  */
-@inject('view') @observer class App extends Component {
-  renderHeader({ name }) {
-    return <Header section={name} />;
-  }
-
-  renderErrors() {
-    if (!this.props.view.hasErrors) return null;
-
-    return (
-      <section>
-        <Alert bsStyle='danger'>
-          <p>{this.props.view.lastError}</p>
-        </Alert>
-      </section>
-    );
-  }
-
-  renderCurrentView({ name }) {
-    const View = viewMap[name] || NotFound;
-
-    return <View />;
-  }
-
-  render() {
-    const { view } = this.props;
-
-    return (
-      <div>
-        <header>
-          {this.renderHeader(view.currentView)}
-        </header>
-        <main role="main">
-          {this.renderErrors()}
-          {this.renderCurrentView(view.currentView)}
-        </main>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <header>
+        <Header />
+      </header>
+      <main role="main">
+        <Alert />
+        <SectionManager />
+      </main>
+      {renderDevTools()}
+    </div>
+  );
 }
 
 export default App;
