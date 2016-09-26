@@ -3,9 +3,21 @@ import { observable, computed, action } from 'mobx';
 import { authenticateUser } from '../services';
 
 class ViewStore {
-  @observable currentView = null;
+  @observable currentView = {};
   @observable currentUser = null;
   @observable lastError = null;
+
+  @action resetState({ currentView = {}, currentUser = null }) {
+    this.currentView = currentView;
+    this.currentUser = currentUser;
+  }
+
+  serialize() {
+    return {
+      currentView: this.currentView,
+      currentUser: this.currentUser,
+    };
+  }
 
   @computed get isLoggedIn() {
     return this.currentUser !== null;
@@ -46,7 +58,11 @@ class ViewStore {
   }
 
   @action doLogout() {
-    this.currentUser = null;
+    return Promise.resolve().then(
+      action('logoutSuccess' ,() => {
+        this.currentUser = null;
+      })
+    );
   }
 
   @action showLogin({ navigating = false } = {}) {

@@ -6,24 +6,24 @@ import { expect } from 'chai';
 import Header from 'components/Header';
 
 describe('<Header/>', () => {
-  it('shows login link if current section is login', () => {
-    const store = observable({currentView: {name: 'login'}});
+  it('shows login link if current user is no logged in', () => {
+    const store = observable({isLoggedIn: false});
 
     const wrapper = mount(<Header view={store}/>);
-    expect(wrapper.find('a')).to.have.attr('href').equal('#/login');
+    expect(wrapper.find('[href="#/login"]')).to.have.length(1);
   });
 
-  it('shows home link if current section is users', () => {
-    const store = observable({currentView: {name: 'users'}});
+  it('shows home link if current user is logged in', () => {
+    const store = observable({isLoggedIn: true});
 
     const wrapper = mount(<Header view={store}/>);
-    expect(wrapper.find('a')).to.have.attr('href').equal('#/home');
+    expect(wrapper.find('[href="#/home"]')).to.have.length(1);
   });
 
-  it('shows no link if current section is unknown', () => {
-    const store = observable({currentView: {name: 'unknown'}});
+  it('shows logout button if current user is logged in', () => {
+    const store = observable({isLoggedIn: true});
 
     const wrapper = mount(<Header view={store}/>);
-    expect(wrapper.find('a')).to.have.length(0);
+    expect(wrapper.find('button').text()).to.eq('Logout');
   });
 });
