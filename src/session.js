@@ -1,10 +1,12 @@
 import { autorun } from 'mobx';
 import { view } from './stores/';
 
-const emptyState = JSON.stringify({});
-
 function readState() {
-  return JSON.parse(sessionStorage.getItem('viewState') || emptyState);
+  const state = sessionStorage.getItem('viewState');
+
+  if (!state) return {};
+
+  return JSON.parse(state);
 }
 
 function writeState(state) {

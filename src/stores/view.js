@@ -3,11 +3,11 @@ import { observable, computed, action } from 'mobx';
 import { authenticateUser } from '../services';
 
 class ViewStore {
-  @observable currentView = null;
+  @observable currentView = {};
   @observable currentUser = null;
   @observable lastError = null;
 
-  @action resetState({ currentView = null, currentUser = null }) {
+  @action resetState({ currentView = {}, currentUser = null }) {
     this.currentView = currentView;
     this.currentUser = currentUser;
   }
