@@ -5,9 +5,7 @@ import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 import { getLoginUrl, getHomeUrl } from '../../routes';
 
 function renderLoginLink(view) {
-  const { name } = view.currentView;
-
-  if (name !== 'login') return null;
+  if (view.isLoggedIn) return null;
 
   return (
     <NavItem eventKey={1} href={getLoginUrl({prefixed: true})}>
@@ -17,9 +15,7 @@ function renderLoginLink(view) {
 }
 
 function renderLogoutLink(view) {
-  const { name } = view.currentView;
-
-  if (name === 'login') return null;
+  if (!view.isLoggedIn) return null;
 
   function onClick() {
     view.doLogout().then(() => view.showLogin());
@@ -33,9 +29,7 @@ function renderLogoutLink(view) {
 }
 
 function renderHomeLink(view) {
-  const { name } = view.currentView;
-
-  if (name !== 'users') return null;
+  if (!view.isLoggedIn) return null;
 
   return (
     <NavItem eventKey={2} href={getHomeUrl({prefixed: true})}>
