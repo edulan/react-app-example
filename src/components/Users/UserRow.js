@@ -11,17 +11,18 @@ class UserRow extends Component {
   onClick() {
     if (!confirm('Are you sure?')) return;
 
-    this.props.onDelete(this.props.user);
+    this.props.onDelete(this.props.person);
   }
 
   render() {
-    const { user } = this.props;
+    const { person } = this.props;
 
     return (
       <tr>
-        <td>{user.id}</td>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
+        <td>{person.id}</td>
+        <td>{person.firstName}</td>
+        <td>{person.lastName}</td>
+        <td>{person.birthDate}</td>
         <td>
           <Button bsStyle='danger' bsSize='small' onClick={this.onClick}>
             Delete

@@ -20,8 +20,6 @@ export function enroute() {
 
   // We need to update the url on every view state change
   autorun('Router setPath', () => {
-    console.log(`Router setting path...`);
-
     // TODO: Improve this
     if (!view.currentView) return;
     if (view.currentView.navigating) return;
@@ -29,7 +27,6 @@ export function enroute() {
     const path = view.currentPath;
 
     if (path !== router.getRoute()) {
-      console.log(`New path ${path}`);
       router.setRoute(path);
     }
   });

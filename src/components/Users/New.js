@@ -3,15 +3,15 @@ import { inject, observer } from 'mobx-react';
 
 import Form from './Form';
 
-@inject('view', 'users') @observer class New extends Component {
+@inject('view', 'people') @observer class New extends Component {
   constructor(props) {
     super(props);
 
     this.createUser = this.createUser.bind(this);
   }
 
-  createUser(user) {
-    this.props.users.create(user)
+  createUser(person) {
+    this.props.people.create(person)
       .then(() => {
         this.props.view.showUsers();
       })

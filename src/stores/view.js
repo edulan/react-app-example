@@ -1,6 +1,6 @@
 import { observable, computed, action } from 'mobx';
 
-import { authenticateUser } from '../services';
+import { authenticateUser } from '../services/users';
 
 class ViewStore {
   @observable currentView = {};

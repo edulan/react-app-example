@@ -5,7 +5,7 @@ import { expect } from 'chai';
 
 import Users from 'components/Users';
 
-class DummyUsersStore {
+class DummyPeopleStore {
   @observable entities;
   @observable loading;
 
@@ -25,28 +25,28 @@ class DummyUsersStore {
 
 describe('<Users/>', () => {
   it('shows loading message when loading', () => {
-    const store = new DummyUsersStore({loading: true});
+    const store = new DummyPeopleStore({loading: true});
 
-    const wrapper = mount(<Users users={store}/>);
+    const wrapper = mount(<Users people={store}/>);
     expect(wrapper.contains(<p>Loading ...</p>)).to.equal(true);
   });
 
   it('shows not found message if there is no user', () => {
-    const store = new DummyUsersStore();
+    const store = new DummyPeopleStore();
 
-    const wrapper = mount(<Users users={store}/>);
+    const wrapper = mount(<Users people={store}/>);
     expect(wrapper.contains(<p>No users found</p>)).to.equal(true);
   });
 
   it('shows user list when there is at least one user', () => {
-    const store = new DummyUsersStore({
-      entities: [{id: 1, name: 'Foo', email: 'foo@example.org'}]
+    const store = new DummyPeopleStore({
+      entities: [{id: 1, firstName: 'Foo', lastName: 'Bar'}]
     });
 
-    const wrapper = mount(<Users users={store}/>);
+    const wrapper = mount(<Users people={store}/>);
 
     expect(wrapper.contains(<td>{1}</td>)).to.equal(true);
     expect(wrapper.contains(<td>Foo</td>)).to.equal(true);
-    expect(wrapper.contains(<td>foo@example.org</td>)).to.equal(true);
+    expect(wrapper.contains(<td>Bar</td>)).to.equal(true);
   });
 });

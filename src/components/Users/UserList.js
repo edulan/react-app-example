@@ -4,25 +4,26 @@ import { Table } from 'react-bootstrap';
 
 import UserRow from './UserRow';
 
-function UserList({ users }) {
-  const onDelete = (user) => this.props.users.destroy(user);
+function UserList({ people }) {
+  const onDelete = (person) => this.props.people.destroy(person);
 
   return (
     <Table striped bordered condensed hover>
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Birth day</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {users.entities.map((user) => {
+        {people.entities.map((person) => {
           return (
             <UserRow
-            key={user.id}
-            user={user}
+            key={person.id}
+            person={person}
             onDelete={onDelete}
             />
           );

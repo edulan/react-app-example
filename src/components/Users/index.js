@@ -7,7 +7,7 @@ import { getNewUserUrl } from '../../routes';
 import UserList from './UserList';
 import Modal from '../Modal';
 
-@inject('users') @observer class Users extends Component {
+@inject('people') @observer class Users extends Component {
   constructor(props) {
     super(props);
 
@@ -21,7 +21,7 @@ import Modal from '../Modal';
 
   componentDidMount() {
     // TODO: Investigate why this action is not logged on devtools
-    this.props.users.getAll();
+    this.props.people.getAll();
   }
 
   onOpen() {
@@ -33,7 +33,7 @@ import Modal from '../Modal';
   }
 
   renderLoading() {
-    if (!this.props.users.loading) {
+    if (!this.props.people.loading) {
       return null;
     }
 
@@ -53,17 +53,17 @@ import Modal from '../Modal';
   }
 
   renderUsers() {
-    if (this.props.users.loading) {
+    if (this.props.people.loading) {
       return null;
     }
 
-    if (this.props.users.isEmpty) {
+    if (this.props.people.isEmpty) {
       return (
         <p>No users found</p>
       );
     }
 
-    return <UserList users={this.props.users} />;
+    return <UserList people={this.props.people} />;
   }
 
   renderModal() {
