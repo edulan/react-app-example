@@ -1,6 +1,4 @@
 const { app, BrowserWindow } = require('electron')
-const installExtension = require('electron-devtools-installer').default
-const REACT_DEVELOPER_TOOLS = require('electron-devtools-installer').REACT_DEVELOPER_TOOLS
 const chalk = require('chalk')
 
 function isDevelopment() {
@@ -20,6 +18,9 @@ function onReady() {
 }
 
 function installDevExtensions() {
+  const installExtension = require('electron-devtools-installer').default
+  const REACT_DEVELOPER_TOOLS = require('electron-devtools-installer').REACT_DEVELOPER_TOOLS
+
   console.log(chalk.blue(`Installing DevTools extensions...`));
 
   return new Promise((resolve, reject) => {
