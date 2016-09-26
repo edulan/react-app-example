@@ -2,6 +2,7 @@ import db from '../db';
 import {
   getUserByEmailQuery,
   getAllUsersQuery,
+  getUsersByQuery,
   destroyUserQuery,
   createUserQuery,
 } from '../queries/';
@@ -23,6 +24,18 @@ export function authenticateUser({ email, password }) {
 export function fetchUsers() {
   return new Promise((resolve, reject) => {
     getAllUsersQuery(db).then((users) => {
+      if (!users) {
+        reject();
+      }
+
+      resolve(users);
+    });
+  });
+}
+
+export function searchUsers(criteria) {
+  return new Promise((resolve, reject) => {
+    getUsersByQuery(db, criteria).then((users) => {
       if (!users) {
         reject();
       }
