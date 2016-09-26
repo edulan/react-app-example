@@ -7,6 +7,18 @@ class ViewStore {
   @observable currentUser = null;
   @observable lastError = null;
 
+  @action resetState({ currentView = null, currentUser = null }) {
+    this.currentView = currentView;
+    this.currentUser = currentUser;
+  }
+
+  serialize() {
+    return {
+      currentView: this.currentView,
+      currentUser: this.currentUser,
+    };
+  }
+
   @computed get isLoggedIn() {
     return this.currentUser !== null;
   }
